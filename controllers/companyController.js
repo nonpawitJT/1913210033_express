@@ -1,4 +1,4 @@
-const Company = require('../models/conpany')
+const Company = require('../models/company')
 
 
 
