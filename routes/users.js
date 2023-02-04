@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 const userController = require('../controllers/userController')
-
+const passportJWT = require("../middleware/passportJWT")
 const { body } = require('express-validator');
 
 /* GET users listing. */
@@ -21,5 +21,6 @@ router.post('/login',[
     body('password').not().isEmpty().withMessage("กรุณากรอกรหัสผ่าน").isLength({min:5}).withMessage("รหัสผ่านต้องอย่างน้อย5ตัวอักษร"),
 ],userController.login );
 
+router.get('/me',[passportJWT.isLogin],userController.profile)
 
 module.exports = router;
