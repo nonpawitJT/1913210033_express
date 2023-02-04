@@ -11,7 +11,7 @@ var companyRouter = require('./routes/company');
 const staffRouter = require('./routes/staff');
 const shopRouter = require('./routes/shop');
 var app = express();
-
+const errorHandler = require('./middleware/errorHandler');
 mongoose.connect(config.MONGODB_URI, {useNewUrlParser: true, useUnifiedTopology: true,useFindAndModify:false});
 
 app.use(logger('dev'));
@@ -23,9 +23,9 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.use('/user', usersRouter);
 app.use('/company',companyRouter);
 app.use('/staff',staffRouter);
 app.use('/shop', shopRouter);
-
+app.use(errorHandler);
 module.exports = app;
